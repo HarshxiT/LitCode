@@ -11,7 +11,6 @@ class Solution {
             }
         max=Math.max(sum,max);
         }
-        // max=Math.max(sum,max);
         return max;
 
     }
