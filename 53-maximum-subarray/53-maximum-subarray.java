@@ -5,14 +5,13 @@ class Solution {
         for(int i:nums){
             if(sum+i>=i){
                 sum+=i;
-                max=Math.max(sum,max);
             }
             else{
                 sum=i;
             }
         max=Math.max(sum,max);
         }
-        max=Math.max(sum,max);
+        // max=Math.max(sum,max);
         return max;
 
     }
