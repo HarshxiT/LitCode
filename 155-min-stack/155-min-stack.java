@@ -1,35 +1,45 @@
 class MinStack {
-    
-    private Stack<int[]> stack = new Stack<>();
-    
-    public MinStack() { }
-    
-    
-    public void push(int x) {
-        
-        /* If the stack is empty, then the min value
-         * must just be the first value we add. */
-        if (stack.isEmpty()) {
-            stack.push(new int[]{x, x});
-            return;
+    public class pair{
+        int val;
+        int min;
+        pair(int val,int min){
+            this.val=val;
+            this.min=min;
         }
-        
-        int currentMin = stack.peek()[1];
-        stack.push(new int[]{x, Math.min(x, currentMin)});
+    } 
+    Stack<pair> st;
+    public MinStack() {
+        st=new Stack<>(); 
     }
     
+    public void push(int val) {
+        if(st.size()==0)
+        st.push(new pair(val,val));
+        else{
+        int currentMin = st.peek().min;
+        st.push(new pair(val,Math.min(val,currentMin)));}
+    }
     
     public void pop() {
-        stack.pop();
+        if(st.size()==0)return;
+        st.pop();
     }
-    
     
     public int top() {
-        return stack.peek()[0];
+        if(st.size()==0)return -1;
+        return st.peek().val;
     }
-    
     
     public int getMin() {
-        return stack.peek()[1];
+        return st.peek().min;
     }
 }
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(val);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
