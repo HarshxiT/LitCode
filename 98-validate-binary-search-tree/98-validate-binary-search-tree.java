@@ -14,19 +14,16 @@
  * }
  */
 class Solution {
-    int max;
-    boolean s;
+    TreeNode prev;
     public boolean isValidBST(TreeNode root) {
-        max=Integer.MIN_VALUE;
-        s=true;
+        prev=null;
         return helper(root);
     }
     public boolean helper(TreeNode root){
         if(root==null)return true;
         if(!helper(root.left)) return false;
-        if(root.val<=max && s==false)return false;
-        max=root.val;
-        s=false;
+        if(prev!=null && root.val<=prev.val)return false;
+        prev=root;
         if(!helper(root.right))return false;
         return true;
     }
