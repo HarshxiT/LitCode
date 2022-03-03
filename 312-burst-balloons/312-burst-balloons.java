@@ -1,38 +1,18 @@
 class Solution {
-    public int maxCoins(int[] arr) {
-        if (arr.length == 0) {
-            return 0;
-        }
-        int[][] dp = new int[arr.length][arr.length];
-        for (int gap = 0; gap < arr.length; gap++) {
-            int si = 0, ei = gap;
-            while (ei < arr.length) {
-                for (int k = si; k <= ei; k++) {
-                    int leftVal = 1;
-                    int rightVal = 1;
-                    if (si != 0) {
-                        leftVal = arr[si - 1];
-                    }
-                    if (ei != arr.length - 1) {
-                        rightVal = arr[ei + 1];
-                    }
-
-                    int before = 0;
-                    int after = 0;
-                    if (si != k) {
-                        before = dp[si][k - 1];
-                    }
-                    if (ei != k) {
-                        after = dp[k + 1][ei];
-                    }
-
-                    dp[si][ei] = Math.max(dp[si][ei], before + after + (leftVal * rightVal * arr[k]));
+    public int maxCoins(int[] nums) {
+        int[][] dp=new int[nums.length][nums.length];
+        for(int g=0;g<nums.length;g++){
+            for(int i=0,j=g; j<nums.length;j++,i++){
+                 int max=Integer.MIN_VALUE;
+                for(int k=i;k<=j;k++){
+                    int left=(k==i?0:dp[i][k-1]);
+                    int right=(k==j?0:dp[k+1][j]);
+                    int val=(i==0?1:nums[i-1])*nums[k]*(j==nums.length-1?1:nums[j+1]);
+                    max=Math.max(val+left+right,max);
                 }
-                si++;
-                ei++;
+                dp[i][j]=max;
             }
-
         }
-        return dp[0][arr.length - 1];
+        return dp[0][nums.length-1];
     }
 }
